@@ -37,7 +37,7 @@ def isDebugSys():
 #修改 ini 路径
 def refreshIniDir():
 	cfg = configparser.ConfigParser()
-	cfg.read('uwsgi.ini')
+	cfg.read('uwsgi_template.ini')
 	chdir = cfg.get('uwsgi', 'chdir')
 	if CurDir != chdir :
 		cfg.set("uwsgi", "chdir", CurDir)
@@ -76,6 +76,9 @@ if __name__ == "__main__":
 			if sys.argv[1] == "start" :
 				refreshIniDir()
 				refreshNginxInfo()
+				if not os.path.exists("./uwsgi"):
+					os.makedirs("./uwsgi")
+
 				os.system('uwsgi --ini uwsgi.ini')
 			elif sys.argv[1] == "stop" :
 				os.system('uwsgi --stop uwsgi/uwsgi.pid')

@@ -3,3 +3,5 @@
 /uwsgi
 /static
 /media
+nginx.conf
+uwsgi.ini
