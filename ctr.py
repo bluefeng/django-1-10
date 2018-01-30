@@ -79,6 +79,8 @@ if __name__ == "__main__":
 			elif sys.argv[1] == "status" :
 				a = os.popen('uwsgi --connect-and-read uwsgi/uwsgi.status')
 				print(a.read())
+			elif sys.argv[1] == "superuser" :
+				os.system('python manage.py createsuperuser --setting blogproject.settings.production')
 			else:
 				raise
 		except:
