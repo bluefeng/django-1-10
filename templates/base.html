@@ -209,17 +209,11 @@
             <div class="card-header">
               相关链接
               <ul>
-                {%if user.is_authenticated %}
                   {%if user.is_staff %}
                     <li><a class="text-muted" 
                       href="/admin">博客后台</a>
                     </li>
                   {% endif %}
-                {% else %}
-                  <li><a class="text-muted" 
-                    href="{% url 'blog:login' %}">登录</a>
-                  </li>
-                {% endif %}
               </ul>
             </div>
           </section>

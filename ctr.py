@@ -73,7 +73,6 @@ if __name__ == "__main__":
 		os.system('python manage.py runserver --setting blogproject.settings.local')
 	else:
 		try:
-			os.system('source ../py_env/django_1_10/bin/activate')
 			if sys.argv[1] == "start" :
 				refreshIniDir()
 				refreshNginxInfo()
@@ -93,6 +92,8 @@ if __name__ == "__main__":
 				os.system('python manage.py migrate --setting blogproject.settings.production')
 			elif sys.argv[1] == "static" :
 				os.system('python manage.py collectstatic --setting blogproject.settings.production')
+			elif sys.argv[1] == "env" :	#没用
+				os.popen('source ../py_env/django_1_10/bin/activate')
 			else:
 				raise
 		except:
