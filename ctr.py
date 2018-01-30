@@ -21,6 +21,12 @@ server {{
         add_header Cache-Control private;
         alias {1};
     }}
+    location /media/ {{
+        expires 30d;
+        autoindex off; 
+        add_header Cache-Control private;
+        alias {2};
+    }}
     # end mipush 
 }}
 """
@@ -48,14 +54,14 @@ def refreshNginxInfo():
 		include uwsgi_params;
         uwsgi_pass 127.0.0.1:8000;
         uwsgi_connect_timeout 30;
-		""", os.path.join(CurDir, 'static/'))
+		""", os.path.join(CurDir, 'static/'), os.path.join(CurDir, 'media/'))
 	with open('nginx.conf', 'w') as f :
 		f.write(serverInfo)
 		f.close()
 		
 def refreshNginxInfoWin():
 	serverInfo = NginxInfo.format("proxy_pass http://127.0.0.1:8000;" 
-		, os.path.join(CurDir, 'static/'))
+		, os.path.join(CurDir, 'static/'), os.path.join(CurDir, 'media/'))
 	with open('nginx.conf', 'w') as f :
 		f.write(serverInfo)
 		f.close()
@@ -67,10 +73,10 @@ if __name__ == "__main__":
 		os.system('python manage.py runserver --setting blogproject.settings.local')
 	else:
 		try:
+			os.system('source ../py_env/django_1_10/bin/activate')
 			if sys.argv[1] == "start" :
 				refreshIniDir()
 				refreshNginxInfo()
-				os.system('python manage.py collectstatic --setting blogproject.settings.production')
 				os.system('uwsgi --ini uwsgi.ini')
 			elif sys.argv[1] == "stop" :
 				os.system('uwsgi --stop uwsgi/uwsgi.pid')
@@ -85,6 +91,8 @@ if __name__ == "__main__":
 				os.system('python manage.py makemigrations --setting blogproject.settings.production')
 			elif sys.argv[1] == "dosql" :
 				os.system('python manage.py migrate --setting blogproject.settings.production')
+			elif sys.argv[1] == "static" :
+				os.system('python manage.py collectstatic --setting blogproject.settings.production')
 			else:
 				raise
 		except:
@@ -96,7 +104,10 @@ if __name__ == "__main__":
 					stop  			--关闭 uwsgi
 					reload 			--重启 uwsgi
 					status			--uwsgi状态查询
-
+					superuser		--创建 超级管理
+					makesql			--迁移数据库
+					dosql			--执行迁移
+					static 			--收集静态文件
 					stop reload 失败可以手动查询status 更改uwsgi/uwsgi.pid
 				"""
 				)
