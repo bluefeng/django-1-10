@@ -1,0 +1,5 @@
+/whoosh_index
+*.pyc
+/uwsgi
+/static
+/media
