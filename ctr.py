@@ -81,6 +81,10 @@ if __name__ == "__main__":
 				print(a.read())
 			elif sys.argv[1] == "superuser" :
 				os.system('python manage.py createsuperuser --setting blogproject.settings.production')
+			elif sys.argv[1] == "makesql" :
+				os.system('python manage.py makemigrations --setting blogproject.settings.production')
+			elif sys.argv[1] == "dosql" :
+				os.system('python manage.py migrate --setting blogproject.settings.production')
 			else:
 				raise
 		except:
