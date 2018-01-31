@@ -1,6 +1,6 @@
 
 MY_NAME = "BlueFeng丨羽枫"
-MY_NAME_E = "BlueFeng"
+MY_NAME_E = "bluefeng"
 MY_NAME_C = "羽枫"
 MY_TITLE = "BlueFeng丨羽枫的博客"
 MY_DES = "游戏开发工程师（码农一个）, 不断学习中, 人生ing"

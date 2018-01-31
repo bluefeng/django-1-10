@@ -5,6 +5,7 @@ from .forms import BlogPostForm
 
 class PostAdmin(admin.ModelAdmin):
     form = BlogPostForm
+    filter_horizontal = ('tags',)
     list_display = ['title', 'created_time', 'pub_date', 'modified_time', 'category', 'author',
                     'views', 'status'
                     ]
