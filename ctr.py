@@ -6,6 +6,11 @@ import configparser
 import platform
 CurDir = os.path.dirname(os.path.abspath(__file__))
 NginxInfo = """
+server {{  
+   listen 80 default;  
+   server_name _;  
+   return 404;  
+}}
 server {{
     listen 80;
 
