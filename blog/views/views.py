@@ -2,25 +2,48 @@
 import markdown
 from braces.views import SelectRelatedMixin, SetHeadlineMixin
 from django.db.models import Count
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.text import slugify
 from django.views.generic import DetailView, ListView, TemplateView
 from markdown.extensions.toc import TocExtension
 from .archives import PostArchiveMixin
 from blog.models import Category, Post,Tag
 from blog.views.mixins.view_mixins import PaginationMixin
-
+from django.http import Http404
 
 class BasePostListView(PaginationMixin, SelectRelatedMixin, SetHeadlineMixin, ListView):
     model = Post
     paginate_by = 10
     select_related = ('author', 'category')
 
+class BasePostQuerySet(BasePostListView):
     def get_queryset(self):
         return super().get_queryset().filter(status=1).annotate(comment_count=Count('comments'))
 
+class SecretPostListView(BasePostListView):
+    template_name = 'blog/index.html'
+    headline = '秘密'
 
-class IndexView(BasePostListView):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=4).annotate(comment_count=Count('comments'))
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_staff :
+            raise Http404()
+        return super().get(request, *args, **kwargs)
+
+class HidePostListView(BasePostListView):
+    template_name = 'blog/index.html'
+    headline = '隐藏'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(status=3).annotate(comment_count=Count('comments'))
+    def get(self, request, *args, **kwargs):
+        if request.user.username != 'admin' :
+            raise Http404()
+        return super().get(request, *args, **kwargs)
+
+
+class IndexView(BasePostQuerySet):
     template_name = 'blog/index.html'
     headline = '首页'
 
@@ -31,7 +54,7 @@ class PopularPostListView(IndexView):
         return super().get_queryset().order_by('-views')
 
 
-class TagPostListView(BasePostListView):
+class TagPostListView(BasePostQuerySet):
     template_name = 'blog/tag_post_list.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -54,7 +77,7 @@ class TagPostListView(BasePostListView):
         return context
 
 
-class CategoryPostListView(BasePostListView):
+class CategoryPostListView(BasePostQuerySet):
     template_name = 'blog/category_post_list.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -104,6 +127,12 @@ class PostDetailView(SetHeadlineMixin, DetailView):
 
     def get_object(self, queryset=None):
         post = super().get_object(queryset=queryset)
+        if post.status == 3 :
+            if self.request.user.username != 'admin' :
+                raise Http404() 
+        elif post.status == 4:
+            if not self.request.user.is_staff :
+                raise Http404()
         md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
@@ -111,7 +140,6 @@ class PostDetailView(SetHeadlineMixin, DetailView):
         ])
         post.body = md.convert(post.body)
         post.toc = md.toc
-
         return post
 
     def get_context_data(self, **kwargs):
@@ -189,3 +217,18 @@ class DonateView(TemplateView):
 
 class LoginView(TemplateView):
     template_name = 'account/login.html'
+
+
+def page_not_found_view(request, exception):
+    return render(request, 'blog/error_page.html',
+                  {'message': '哎呀，您访问的地址是一个未知的地方。请点击首页看看别的？', 'statuscode': '404'})
+
+def server_error_view(request, exception):
+    return render(request, 'blog/error_page.html',
+                  {'message': '哎呀，出错了, 请点击首页看看别的？', 'statuscode': '500'})
+
+def permission_denied_view(request, exception):
+    return render(request, 'blog/error_page.html',
+                  {'message': '哎呀，您没有权限访问此页面，请点击首页看看别的？', 'statuscode': '403'})
+
+

@@ -4,7 +4,13 @@
     <div class="bg-white list-group post-items">
       <div class="list-group-item post-items-header px-7">
         <a class="text-muted text-small mr-5" href="{% url 'blog:index' %}">最新</a>
-        <a class="text-muted text-small" href="{% url 'blog:popular' %}">热门</a>
+        <a class="text-muted text-small mr-5" href="{% url 'blog:popular' %}">热门</a>
+        {% if user.is_staff %}
+        <a class="text-muted text-small mr-5" href="{% url 'blog:secret' %}">秘密</a>
+        {% endif %}
+        {%if user.username == "admin" %}
+        <a class="text-muted text-small mr-5" href="{% url 'blog:hide' %}">隐藏</a>
+        {% endif %}
         <a class="text-muted text-small float-right" href="/all/rss">
           <i class="fa fa-rss mr-1" aria-hidden="true"></i>RSS订阅
         </a>

@@ -22,6 +22,10 @@ from django.contrib.sitemaps.views import sitemap
 from blog.feeds import AllPostsRssFeed
 from blog.sitemaps import sitemaps
 
+handler404 = 'blog.views.views.page_not_found_view'
+handler500 = 'blog.views.views.server_error_view'
+handler403 = 'blog.views.views.permission_denied_view'
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),

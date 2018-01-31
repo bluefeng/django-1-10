@@ -6,6 +6,8 @@ from blog.views import views
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^popular/$', views.PopularPostListView.as_view(), name='popular'),
+    url(r'^secret/$', views.SecretPostListView.as_view(), name='secret'),
+    url(r'^hide/$', views.HidePostListView.as_view(), name='hide'),
     url(r'^post/(?P<pk>[0-9]+)/(^#c\d+/)?$', views.PostDetailView.as_view(), name='detail'),
     url(
         r'^category/django-advanced-blog-tutorial/$',
@@ -24,5 +26,4 @@ urlpatterns = [
     url(r'^categories/$', views.CategoryListView.as_view(), name='categories'),
     url(r'^archives/$', views.PostArchivesView.as_view(), name='archives'),
     url(r'^donate/$', views.DonateView.as_view(), name='donate'),
-    url(r'^login/$', views.LoginView.as_view(), name='login'),
 ]

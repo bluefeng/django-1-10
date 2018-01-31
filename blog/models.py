@@ -85,6 +85,7 @@ class Post(models.Model):
         (1, 'published', 'published'),
         (2, 'draft', 'draft'),
         (3, 'hidden', 'hidden'),
+        (4, 'secret', 'secret'),
     )
 
     status = models.PositiveSmallIntegerField(_('status'), choices=STATUS_CHOICES,

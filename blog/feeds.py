@@ -12,7 +12,7 @@ class AllPostsRssFeed(Feed):
     description = settings.MY_TITLE + "最新文章"
 
     def items(self):
-        return Post.objects.all()
+        return Post.objects.all().filter(status = 1)
 
     def item_title(self, item):
         return '[%s] %s' % (item.category, item.title)

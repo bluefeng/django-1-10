@@ -19,6 +19,7 @@
     <p class="text-center">
       -- EOF --
     </p>
+    {% if OPEN_FEE %}
     <div>
       <button class="btn btn-primary" id="js-reward"><i class="fa fa-jpy"
                                                         aria-hidden="true"></i>
@@ -41,6 +42,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     <div class="post-tags">
       <ul class="list-inline">
         {% for tag in post.tags.all %}
