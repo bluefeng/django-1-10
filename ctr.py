@@ -73,11 +73,20 @@ def refreshNginxInfoWin():
 
 
 if __name__ == "__main__":
-	if isDebugSys() :
-		refreshNginxInfoWin()
-		os.system('python manage.py runserver --setting blogproject.settings.local')
-	else:
-		try:
+	try:
+		if isDebugSys() :
+			if sys.argv[1] == "start" :
+				#refreshNginxInfoWin()
+				os.system('python manage.py runserver --setting blogproject.settings.local')
+			elif sys.argv[1] == "superuser" :
+				os.system('python manage.py createsuperuser --setting blogproject.settings.local')
+			elif sys.argv[1] == "makesql" :
+				os.system('python manage.py makemigrations --setting blogproject.settings.local')
+			elif sys.argv[1] == "dosql" :
+				os.system('python manage.py migrate --setting blogproject.settings.local')
+			else:
+				raise
+		else:
 			if sys.argv[1] == "start" :
 				refreshIniDir()
 				refreshNginxInfo()
@@ -104,20 +113,20 @@ if __name__ == "__main__":
 				os.popen('source ../py_env/django_1_10/bin/activate')
 			else:
 				raise
-		except:
-			#traceback.print_exc()
-			print(
-				"""
-				command:
-					start 			--开启 uwsgi  
-					stop  			--关闭 uwsgi
-					reload 			--重启 uwsgi
-					status			--uwsgi状态查询
-					superuser		--创建 超级管理
-					makesql			--迁移数据库
-					dosql			--执行迁移
-					static 			--收集静态文件
-					stop reload 失败可以手动查询status 更改uwsgi/uwsgi.pid
-				"""
-				)
+	except:
+		#traceback.print_exc()
+		print(
+			"""
+			command:
+				start 			--开启 uwsgi  
+				stop  			--关闭 uwsgi
+				reload 			--重启 uwsgi
+				status			--uwsgi状态查询
+				superuser		--创建 超级管理
+				makesql			--迁移数据库
+				dosql			--执行迁移
+				static 			--收集静态文件
+				stop reload 失败可以手动查询status 更改uwsgi/uwsgi.pid
+			"""
+			)
 	

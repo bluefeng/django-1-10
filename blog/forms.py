@@ -5,7 +5,7 @@ from .widgets import BodyMdTextarea
 
 
 class BlogPostForm(forms.ModelForm):
-    body = forms.CharField(label=_('body'), widget=BodyMdTextarea)
+    body = forms.CharField(label=_('内容'), widget=BodyMdTextarea)
 
     class Meta:
         fields = ['status','title','excerpt','pub_date','cover','category','tags','author']

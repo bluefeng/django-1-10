@@ -188,7 +188,7 @@ $(function (){
             $editor.markdown({
                 language: 'zh',
                 imgurl: "/api/upload/",
-		hiddenButtons:['cmdEmoji']
+		hiddenButtons:['cmdEmoji', 'cmdImage']
             }).attr("placeholder","提出你的见解...");
             $editor.on("drop", function (e) {
                 e.preventDefault();

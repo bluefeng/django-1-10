@@ -33,7 +33,6 @@ urlpatterns = [
     url(r'^comments/', include('comments.urls')),
     url(r'^notifications/', include('notify.urls')),
     url(r'^notifications/', include('notifications.urls')),
-    url(r'^api/', include('rest.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^search/', include('haystack.urls')),
     url(r'^sitemap\.xml$', sitemap,
@@ -49,5 +48,4 @@ if settings.DEBUG:
 
     urlpatterns += [
         url(r'^__debug__/', include(debug_toolbar.urls)),
-        url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
     ]

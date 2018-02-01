@@ -39,18 +39,11 @@ INSTALLED_APPS = [
     'markdownify',
     'django_comments',
     'notifications',
-    'rest_framework',
     'blog',
     'users',
     'comments',
     'notify',
-    'rest',
 ]
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    ],
-}
 
 COMMENTS_APP = 'comments'
 SITE_ID = 1
