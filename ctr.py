@@ -14,7 +14,7 @@ server {{
 server {{
     listen 80;
 
-    server_name www.iwill.fun iwill.fun; 
+    server_name www.iwill.fun iwill.fun localhost; 
     charset UTF-8;
 
     location / {{
