@@ -19,7 +19,7 @@ from model_utils.fields import AutoCreatedField, AutoLastModifiedField
 
 class Img(models.Model):
     name = models.CharField(_('图片名(描述)'), max_length = 100)
-    head_pic = models.ImageField('图片',upload_to = 'blog/%Y/%m/%d/')
+    head_pic = models.ImageField('图片',upload_to = 'blog/%Y%m%d/')
     created = models.DateTimeField(_('创建时间'), auto_now_add=True)
     def __str__(self):
         return self.name
@@ -58,7 +58,7 @@ class Category(models.Model):
                                              default=GENRE_CHOICES.collection)
     status = models.PositiveSmallIntegerField(_('状态(教程使用)'), choices=STATUS_CHOICES,
                                               blank=True, null=True)
-    cover = models.ImageField(_('封面(教程使用)'), upload_to='covers/categories/%Y/%m/%d/', blank=True)
+    cover = models.ImageField(_('封面(教程使用)'), upload_to='covers/categories/', blank=True)
     cover_thumbnail = ImageSpecField(source='cover',
                                      processors=[ResizeToFill(500, 300)],
                                      format='JPEG',
