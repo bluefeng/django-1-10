@@ -2,7 +2,7 @@
 <div class="comment-main">
   <header class="comment-user">
         <span class="text-small text-muted nickname">{{ comment.user.name }}
-          {% if comment.user.name == MY_NAME_E %}
+          {% if comment.user.is_superuser %}
             <span class="master">[博主]</span>
           {% endif %}
         </span>

@@ -8,7 +8,7 @@
         {% if user.is_staff %}
         <a class="text-muted text-small mr-5" href="{% url 'blog:secret' %}">秘密</a>
         {% endif %}
-        {%if user.username == "admin" %}
+        {%if user.is_superuser %}
         <a class="text-muted text-small mr-5" href="{% url 'blog:hide' %}">隐藏</a>
         {% endif %}
         <a class="text-muted text-small float-right" href="/all/rss">

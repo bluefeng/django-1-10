@@ -38,7 +38,7 @@ class HidePostListView(BasePostListView):
     def get_queryset(self):
         return super().get_queryset().filter(status=3).annotate(comment_count=Count('comments'))
     def get(self, request, *args, **kwargs):
-        if request.user.username != 'admin' :
+        if not request.user.is_superuser :
             raise Http404()
         return super().get(request, *args, **kwargs)
 
@@ -128,7 +128,7 @@ class PostDetailView(SetHeadlineMixin, DetailView):
     def get_object(self, queryset=None):
         post = super().get_object(queryset=queryset)
         if post.status == 3 :
-            if self.request.user.username != 'admin' :
+            if not self.request.user.is_superuser :
                 raise Http404() 
         elif post.status == 4:
             if not self.request.user.is_staff :
