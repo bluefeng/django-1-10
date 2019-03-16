@@ -1,7 +1,7 @@
 # 博客
 ## 博客介绍
 * 基于django1.10的博客系统
-* 博客地址: [BlueFeng丨羽枫的博客](http://www.iwill.fun)
+* 博客地址: [Heryc丨羽枫的博客](http://www.heryc.fun)
 * 使用python3.x运行
 
 ## 开发运行环境搭建
