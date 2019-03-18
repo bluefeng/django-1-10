@@ -218,6 +218,8 @@ class DonateView(TemplateView):
 class LoginView(TemplateView):
     template_name = 'account/login.html'
 
+class PrivacyPolicyView(TemplateView):
+    template_name = 'PrivacyPolicy.html'
 
 def page_not_found_view(request, exception):
     return render(request, 'blog/error_page.html',

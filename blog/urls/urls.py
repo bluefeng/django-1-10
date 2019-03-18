@@ -5,6 +5,7 @@ from blog.views import views
 
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^privacypolicy/$', views.PrivacyPolicyView.as_view(), name='privacypolicy'),
     url(r'^popular/$', views.PopularPostListView.as_view(), name='popular'),
     url(r'^secret/$', views.SecretPostListView.as_view(), name='secret'),
     url(r'^hide/$', views.HidePostListView.as_view(), name='hide'),
