@@ -1,13 +1,13 @@
 
-MY_NAME = "BlueFeng丨羽枫"
-MY_NAME_E = "bluefeng"
+MY_NAME = "Heryc丨羽枫"
+MY_NAME_E = "Heryc"
 MY_NAME_C = "羽枫"
-MY_TITLE = "BlueFeng丨羽枫的博客"
+MY_TITLE = "Heryc丨羽枫的博客"
 MY_DES = "游戏开发工程师（码农一个）, 不断学习中, 人生ing"
 
 MY_EMAIL = "zhhyf521@163.com"
 MY_GITHUB = "https://github.com/bluefeng"
-OPEN_FEE = False
+OPEN_FEE = True
 OPEN_LEN = False
 
 def seo_processor(requests):

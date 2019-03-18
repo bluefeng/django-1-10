@@ -173,4 +173,4 @@ MARKDOWNIFY_MARKDOWN_EXTENSIONS = ['markdown.extensions.fenced_code',
                                    'markdown.extensions.extra', ]
 
 ADMINS = [('zhh', 'zhhyf521@163.com')]
-SERVER_EMAIL = 'bluefeng@iwill.fun'
+SERVER_EMAIL = 'heryc@heryc.fun'
