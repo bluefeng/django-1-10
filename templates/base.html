@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static blog_tags  notifications_tags %}
 {% load blog %}
-<html lang="en">
+<html lang="en" xmlns:wb="http://open.weibo.com/wb">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
   <link rel="shortcut icon" href="{% static 'blog/images/favicon.ico' %}" type="image/x-icon">
 <script src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
   {% block link %}{% endblock link %}
 
   {% baidu_scripts %}
@@ -218,6 +219,9 @@
             <div class="card-header">
               相关链接
               <ul>
+                  <li>
+                    <wb:follow-button uid="3310762213" type="red_1" width="67" height="24"></wb:follow-button>
+                  </li>
                   {%if user.is_staff %}
                     <li><a class="text-muted" 
                       href="/admin">博客后台</a>
